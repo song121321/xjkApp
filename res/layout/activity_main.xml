@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appbg" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RadioGroup
+            android:id="@+id/home_radio_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/text_white"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/home_tab_home"
+                style="@style/home_tab_bottom"
+                android:checked="true"
+                android:drawableTop="@drawable/main_bottom_home_selector"
+                android:text="@string/home"
+                android:textColor="@color/actionbar_bg" />
+
+            <RadioButton
+                android:id="@+id/home_tab_gis"
+                style="@style/home_tab_bottom"
+                android:drawableTop="@drawable/main_bottom_gis_selector"
+                android:text="@string/gis"
+                android:textColor="@color/main_textcolor_normal" />
+
+            <RadioButton
+                android:id="@+id/home_tab_facility"
+                style="@style/home_tab_bottom"
+                android:drawableTop="@drawable/main_bottom_facility_selector"
+                android:text="@string/facility"
+                android:textColor="@color/main_textcolor_normal" />
+
+            <RadioButton
+                android:id="@+id/home_tab_i"
+                style="@style/home_tab_bottom"
+                android:drawableTop="@drawable/main_bottom_i_selector"
+                android:text="@string/i"
+                android:textColor="@color/main_textcolor_normal" />
+        </RadioGroup>
+    </LinearLayout>
+
+</TabHost>
