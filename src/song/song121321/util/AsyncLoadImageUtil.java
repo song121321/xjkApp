@@ -1,6 +1,6 @@
 package song.song121321.util;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 

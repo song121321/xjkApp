@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import com.kyleduo.switchbutton.SwitchButton;
 
 import song.song121321.util.AccountSharedPreferenceHelper;

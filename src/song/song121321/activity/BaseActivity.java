@@ -8,8 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.fingerth.supdialogutils.SYSDiaLogUtils;
-import com.jtslkj.R;
 
+import song.song121321.R;
 import song.song121321.app.MyApplication;
 
 public class BaseActivity extends Activity implements OnClickListener {

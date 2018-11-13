@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
 public class XListView extends ListView implements OnScrollListener {
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
 import song.song121321.app.MyApplication;
 import song.song121321.util.LoginGesturePatternUtils;

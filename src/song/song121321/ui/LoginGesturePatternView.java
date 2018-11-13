@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import song.song121321.util.LoginGesturePatternUtils;
-import com.jtslkj.R;
+import song.song121321.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;

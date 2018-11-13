@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 

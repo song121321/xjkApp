@@ -1,6 +1,7 @@
 package song.song121321.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -12,10 +13,16 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.jtslkj.R;
+
+import java.util.List;
+
+import song.song121321.R;
 
 import song.song121321.app.MyApplication;
+import song.song121321.bean.dto.ConsumeDto;
+import song.song121321.util.ConsumeWebUtil;
 import song.song121321.util.InitExitUtil;
+import song.song121321.util.SightWebInfo;
 
 public class ISettingActivity extends BaseActivity implements
         OnClickListener {
@@ -76,6 +83,9 @@ public class ISettingActivity extends BaseActivity implements
                 startActivity(intent);
                 break;
             case R.id.bt_wojia_setting_exit:
+
+               new loadingDataTask().execute();
+
                 mBuilder = new MaterialDialog.Builder(ISettingActivity.this);
                 mBuilder.title(R.string.system_prompt);
                 mBuilder.content(R.string.i_main_sure_to_exit);
@@ -104,6 +114,27 @@ public class ISettingActivity extends BaseActivity implements
             default:
                 break;
 
+        }
+
+    }
+
+    class loadingDataTask extends AsyncTask<Object, Object, List<ConsumeDto>> {
+
+        protected List<ConsumeDto> doInBackground(Object... params) {
+            try {
+                ConsumeWebUtil cwu = new ConsumeWebUtil();
+                cwu.setMonth("2018-11");
+                return  cwu.getConsume();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(List<ConsumeDto> result) {
+            System.out.println("sos---"+result);
         }
 
     }

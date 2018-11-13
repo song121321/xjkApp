@@ -1,6 +1,6 @@
 package song.song121321.ui;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;

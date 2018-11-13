@@ -16,7 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.jtslkj.R;
+import song.song121321.R;
 import com.kyleduo.switchbutton.SwitchButton;
 
 import song.song121321.activity.ISettingContentActivity;

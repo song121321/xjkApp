@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
 public class XListViewHeader extends LinearLayout {
 	private LinearLayout mContainer;

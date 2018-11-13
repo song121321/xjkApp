@@ -1,6 +1,6 @@
 package song.song121321.util;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;

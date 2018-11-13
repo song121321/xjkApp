@@ -10,7 +10,7 @@ import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 

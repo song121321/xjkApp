@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jtslkj.R;
+import song.song121321.R;
 
 import song.song121321.app.MyApplication;
 import song.song121321.fragment.ISettingSafetyFragment;

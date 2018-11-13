@@ -9,8 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.HashMap;
 
 import song.song121321.app.MyApplication;
@@ -39,6 +47,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void setcliker() {
+
 		bt_login.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -59,6 +68,7 @@ public class LoginActivity extends BaseActivity {
 			}
 		});
 	}
+
 
 	private class LoginTask extends AsyncTask<Void, Void, String> {
 		String name;

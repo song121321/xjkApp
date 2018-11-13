@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
 import song.song121321.app.MyApplication;
 import song.song121321.config.MyConfig;

@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Window;
 
-import com.jtslkj.R;
+import song.song121321.R;
 
 import song.song121321.app.MyApplication;
 import song.song121321.config.MyConfig;

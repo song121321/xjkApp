@@ -41,7 +41,7 @@ allprojects {
 android {
     compileSdkVersion 25
     defaultConfig {
-        applicationId 'ga.song121321'
+        applicationId 'song.song121321'
         minSdkVersion 20
         targetSdkVersion 25
         versionCode 2
