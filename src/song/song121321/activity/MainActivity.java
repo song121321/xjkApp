@@ -25,11 +25,11 @@ import song.song121321.util.AccountSharedPreferenceHelper;
 public class MainActivity extends TabActivity {
     private TabHost mTabHost;
     private RadioGroup mTabButtonGroup;
-    public static final String TAB_HOME = "home";
+    public static final String TAB_CONSUME = "consume";
     public static final String TAB_GIS = "gis";
     public static final String TAB_DEVICE = "device";
     public static final String TAB_PERSON = "person";
-    private RadioButton rButtonHome, rButtonGis, rButtonFacility, rButtonI;
+    private RadioButton rButtonConsume, rButtonGis, rButtonFacility, rButtonI;
     AccountSharedPreferenceHelper asph;
     MaterialDialog.Builder mBuilder;
     MaterialDialog mMaterialDialog;
@@ -61,7 +61,7 @@ public class MainActivity extends TabActivity {
 
     private void findViewById() {
         mTabButtonGroup = (RadioGroup) findViewById(R.id.home_radio_button_group);
-        rButtonHome = (RadioButton) findViewById(R.id.home_tab_home);
+        rButtonConsume = (RadioButton) findViewById(R.id.home_tab_consume);
         rButtonGis = (RadioButton) findViewById(R.id.home_tab_gis);
         rButtonFacility = (RadioButton) findViewById(R.id.home_tab_facility);
         rButtonI = (RadioButton) findViewById(R.id.home_tab_i);
@@ -71,13 +71,13 @@ public class MainActivity extends TabActivity {
 
         mTabHost = getTabHost();
 
-        Intent iHome = new Intent(this, HomeActivity.class);
+        Intent iConsume = new Intent(this, ConsumeActivity.class);
         Intent iGis = new Intent(this, GisActivity.class);
         Intent iDevice = new Intent(this, DeviceActivity.class);
         Intent i_wojia = new Intent(this, IActivity.class);
 
-        mTabHost.addTab(mTabHost.newTabSpec(TAB_HOME)
-                .setIndicator(TAB_HOME).setContent(iHome));
+        mTabHost.addTab(mTabHost.newTabSpec(TAB_CONSUME)
+                .setIndicator(TAB_CONSUME).setContent(iConsume));
         mTabHost.addTab(mTabHost.newTabSpec(TAB_GIS)
                 .setIndicator(TAB_GIS).setContent(iGis));
         mTabHost.addTab(mTabHost.newTabSpec(TAB_DEVICE).setIndicator(TAB_DEVICE)
@@ -88,8 +88,8 @@ public class MainActivity extends TabActivity {
                 .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch (checkedId) {
-                            case R.id.home_tab_home:
-                                mTabHost.setCurrentTabByTag(TAB_HOME);
+                            case R.id.home_tab_consume:
+                                mTabHost.setCurrentTabByTag(TAB_CONSUME);
                                 changeTextColor(1);
                                 break;
                             case R.id.home_tab_gis:
@@ -115,7 +115,7 @@ public class MainActivity extends TabActivity {
     private void changeTextColor(int index) {
         switch (index) {
             case 1:
-                rButtonHome.setTextColor(getResources().getColor(
+                rButtonConsume.setTextColor(getResources().getColor(
                         R.color.actionbar_bg));
                 rButtonGis.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));
@@ -125,7 +125,7 @@ public class MainActivity extends TabActivity {
                         R.color.main_textcolor_normal));
                 break;
             case 2:
-                rButtonHome.setTextColor(getResources().getColor(
+                rButtonConsume.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));
                 rButtonGis.setTextColor(getResources().getColor(
                         R.color.actionbar_bg));
@@ -135,7 +135,7 @@ public class MainActivity extends TabActivity {
                         R.color.main_textcolor_normal));
                 break;
             case 3:
-                rButtonHome.setTextColor(getResources().getColor(
+                rButtonConsume.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));
                 rButtonGis.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));
@@ -146,7 +146,7 @@ public class MainActivity extends TabActivity {
                 break;
 
             case 4:
-                rButtonHome.setTextColor(getResources().getColor(
+                rButtonConsume.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));
                 rButtonGis.setTextColor(getResources().getColor(
                         R.color.main_textcolor_normal));

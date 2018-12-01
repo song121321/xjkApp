@@ -117,7 +117,7 @@ public class ConsumeWebUtil extends WebUtil {
                     consumeDto.setBank_id(singleDataJson.getInt("bank_id"));
                     consumeDto.setBank_descp(singleDataJson.getString("bank_descp"));
                     consumeDto.setBudget_id(singleDataJson.getInt("budget_id"));
-                    consumeDto.setBank_descp(singleDataJson.getString("budget_descp"));
+                    consumeDto.setBudget_descp(singleDataJson.getString("budget_descp"));
                     consumeDto.setAccount_id(singleDataJson.getInt("account_id"));
                     consumeDto.setAccount_nickname(singleDataJson.getString("account_nickname"));
                     consumeDto.setCurrency_id(singleDataJson.getInt("currency_id"));
