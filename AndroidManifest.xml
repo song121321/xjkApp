@@ -112,6 +112,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
         <activity android:name=".activity.ConsumeActivity" />
+        <activity android:name=".activity.ConsumeAddActivity" />
 
     </application>
 

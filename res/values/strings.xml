@@ -98,6 +98,15 @@
     <string name="budget">预算</string>
     <string name="cassert">资产</string>
     <string name="ctype">类型</string>
+    <string name="add">添加</string>
+    <string name="je">金额</string>
+    <string name="je_with_hint">金额(精确到分)</string>
+    <string name="consume_add_desc">消费描述</string>
+    <string name="consume_add_detail">消费详情</string>
+    <string name="consume_add_budget">选择预算</string>
+    <string name="consume_add_cassert">选择资产</string>
+    <string name="consume_add_ctype">选择类型</string>
+    <string name="consume_add_add_consume">添加消费记录</string>
 
 
     <!-- Device -->

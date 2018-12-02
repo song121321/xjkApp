@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_consume"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/appbg"
     android:orientation="vertical">
 
-    <include layout="@layout/actionbar_back_search" />
+    <include layout="@layout/actionbar_only_title" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -137,7 +138,45 @@
             android:id="@+id/xl_consume_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:divider="@color/text_white"></song.song121321.xlistview.XListView>
+            android:divider="@color/text_white">
+        </song.song121321.xlistview.XListView>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+
+            fab:fab_addButtonColorNormal="@color/actionbar_bg"
+            fab:fab_addButtonColorPressed="@color/actionbar_bg"
+            fab:fab_addButtonPlusIconColor="#46ffffff">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_consume_add"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                fab:fab_addButtonColorNormal="@color/actionbar_bg"
+                fab:fab_addButtonColorPressed="@color/actionbar_bg"
+                fab:fab_addButtonPlusIconColor="#46ffffff"
+                fab:fab_icon="@drawable/actionbar_add" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_consume_search"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                fab:fab_title="@string/system_search"
+                fab:fab_addButtonColorNormal="@color/actionbar_bg"
+                fab:fab_addButtonColorPressed="@color/actionbar_bg"
+                fab:fab_icon="@drawable/actionbar_search_head" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     </RelativeLayout>
+
 
 </LinearLayout>

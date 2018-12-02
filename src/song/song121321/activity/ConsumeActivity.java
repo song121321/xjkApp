@@ -1,5 +1,6 @@
 package song.song121321.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,9 +45,9 @@ public class ConsumeActivity extends BaseActivity implements
         OnClickListener, OnItemClickListener, IXListViewListener {
     private XListView consunmeList;
     private ListView section_list;
-    private LinearLayout llSearch, llBack, ll_bar;
+    private LinearLayout ll_bar;
     private TextView tvTitle, tvBudget, tvAssert, tvConsumeType;
-    private ImageView ivBudget, ivAssert, ivConsumrType;
+    private ImageView ivBudget, ivAssert, ivConsumeType;
     private List<ConsumeDto> consumeBeans = new ArrayList<ConsumeDto>();
     private ArrayList<String> consumeTypeOptions = new ArrayList<String>();
     private ArrayList<String> assertOptions = new ArrayList<String>();
@@ -54,6 +57,7 @@ public class ConsumeActivity extends BaseActivity implements
     private PopupWindow mPopWin;
     private int sectionindex;
     private int page = 1;
+    private FloatingActionButton fabAdd, fabSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceAssert) {
@@ -67,15 +71,15 @@ public class ConsumeActivity extends BaseActivity implements
 
     private void findViewById() {
         consunmeList = (XListView) findViewById(R.id.xl_consume_list);
-        tvTitle = (TextView) findViewById(R.id.tv_actionbar_title);
+        tvTitle = (TextView) findViewById(R.id.tv_actionbar_usual_title);
         tvBudget = (TextView) findViewById(R.id.tv_consume_section_budget);
         tvAssert = (TextView) findViewById(R.id.tv_consume_section_assert);
         tvConsumeType = (TextView) findViewById(R.id.tv_consume_section_consume_type);
         ivBudget = (ImageView) findViewById(R.id.iv_consume_mark_budget);
         ivAssert = (ImageView) findViewById(R.id.iv_consume_mart_assert);
-        ivConsumrType = (ImageView) findViewById(R.id.iv_consume_mark_consume_type);
-        llBack = (LinearLayout) findViewById(R.id.ll_actionbar_left);
-        llSearch = (LinearLayout) findViewById(R.id.ll_actionbar_right);
+        ivConsumeType = (ImageView) findViewById(R.id.iv_consume_mark_consume_type);
+        fabAdd = (FloatingActionButton) findViewById(R.id.fab_consume_add);
+        fabSearch = (FloatingActionButton) findViewById(R.id.fab_consume_search);
     }
 
     private void initView() {
@@ -102,33 +106,40 @@ public class ConsumeActivity extends BaseActivity implements
         for (ConsumeDto consumeDto : consumeList) {
             totalJe += consumeDto.getJe();
         }
-        showShortToast("共计消费：" + consumeList.size() + "笔，金额：" + String.format("%.2f",totalJe));
+        showShortToast("共计消费：" + consumeList.size() + "笔，金额：" + String.format("%.2f", totalJe));
 
     }
 
     private void initActionBar() {
         tvTitle.setText(getResources().getString(R.string.consume_list));
-        llBack.setOnClickListener(new OnClickListener() {
-
+        fabAdd.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                MyApplication.getInstance().removeActivity(
-                        ConsumeActivity.this);
-                finish();
+            public void onClick(View v) {
 
+                Intent intent = new Intent(ConsumeActivity.this,
+                        ConsumeAddActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        fabSearch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showShortToast("search");
             }
         });
 
 
-        llSearch.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-//                Intent intent = new Intent(DeviceWellActivity.this,
-//                        BaijiaConsumeSearchActivity.class);
-//                startActivity(intent);
-            }
-        });
+//        llSearch.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+////                Intent intent = new Intent(DeviceWellActivity.this,
+////                        BaijiaConsumeSearchActivity.class);
+////                startActivity(intent);
+//            }
+//        });
     }
 
     private void refresh() {
@@ -242,7 +253,7 @@ public class ConsumeActivity extends BaseActivity implements
         tvConsumeType.setTextColor(getResources().getColor(R.color.main_textcolor_normal));
         ivBudget.setImageResource(R.drawable.section_bg_normal);
         ivAssert.setImageResource(R.drawable.section_bg_normal);
-        ivConsumrType.setImageResource(R.drawable.section_bg_normal);
+        ivConsumeType.setImageResource(R.drawable.section_bg_normal);
         switch (index) {
             case 1:
                 tvBudget.setTextColor(getResources().getColor(R.color.main_textcolor_select));
@@ -254,7 +265,7 @@ public class ConsumeActivity extends BaseActivity implements
                 break;
             case 3:
                 tvConsumeType.setTextColor(getResources().getColor(R.color.main_textcolor_select));
-                ivConsumrType.setImageResource(R.drawable.section_bg_selected);
+                ivConsumeType.setImageResource(R.drawable.section_bg_selected);
                 break;
         }
     }
