@@ -6,6 +6,8 @@ public class BankDto extends BaseModelDto {
 	private double je;
 	private long accounttype;
 	private long status;
+	private long fromBankId;
+	private String fromBankName;
 
 	public BankDto() {
 	}
@@ -29,6 +31,22 @@ public class BankDto extends BaseModelDto {
 	}
 
 
+
+	public String getFromBankName() {
+		return fromBankName;
+	}
+
+	public void setFromBankName(String fromBankName) {
+		this.fromBankName = fromBankName;
+	}
+
+	public long getFromBankId() {
+		return fromBankId;
+	}
+
+	public void setFromBankId(long fromBankId) {
+		this.fromBankId = fromBankId;
+	}
 
 	public void setAccount(AccountListDto account) {
 		this.account = account;

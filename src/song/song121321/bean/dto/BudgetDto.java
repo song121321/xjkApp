@@ -4,7 +4,9 @@ public class BudgetDto extends BaseModelDto {
 	private static final long serialVersionUID = 1L;
 
 	private double je;
+	private double useJe;
 	private double leftje;
+	private int consumeNumber;
 	private long year;
 	private long month;
 	private long status;
@@ -12,6 +14,21 @@ public class BudgetDto extends BaseModelDto {
 	public BudgetDto() {
 	}
 
+	public double getUseJe() {
+		return useJe;
+	}
+
+	public void setUseJe(double useJe) {
+		this.useJe = useJe;
+	}
+
+	public int getConsumeNumber() {
+		return consumeNumber;
+	}
+
+	public void setConsumeNumber(int consumeNumber) {
+		this.consumeNumber = consumeNumber;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

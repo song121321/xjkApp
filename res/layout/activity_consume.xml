@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/ll_consume"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -151,7 +152,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-
+            app:fab_labelStyle="@style/lable_style"
             fab:fab_addButtonColorNormal="@color/actionbar_bg"
             fab:fab_addButtonColorPressed="@color/actionbar_bg"
             fab:fab_addButtonPlusIconColor="#46ffffff">
@@ -163,6 +164,7 @@
                 fab:fab_addButtonColorNormal="@color/actionbar_bg"
                 fab:fab_addButtonColorPressed="@color/actionbar_bg"
                 fab:fab_addButtonPlusIconColor="#46ffffff"
+                fab:fab_title="@string/add"
                 fab:fab_icon="@drawable/actionbar_add" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -173,7 +175,22 @@
                 fab:fab_addButtonColorNormal="@color/actionbar_bg"
                 fab:fab_addButtonColorPressed="@color/actionbar_bg"
                 fab:fab_icon="@drawable/actionbar_search_head" />
-
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_consume_pre"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                fab:fab_addButtonColorNormal="@color/actionbar_bg"
+                fab:fab_addButtonColorPressed="@color/actionbar_bg"
+                fab:fab_title="@string/system_pre_month"
+                fab:fab_icon="@drawable/actionbar_back1" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_consume_next"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                fab:fab_title="@string/system_next_month"
+                fab:fab_addButtonColorNormal="@color/actionbar_bg"
+                fab:fab_addButtonColorPressed="@color/actionbar_bg"
+                fab:fab_icon="@drawable/actionbar_next" />
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </RelativeLayout>

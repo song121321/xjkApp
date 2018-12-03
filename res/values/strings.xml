@@ -30,6 +30,8 @@
     <string name="system_exit">退出</string>
     <string name="system_about">关于</string>
     <string name="system_time">时间</string>
+    <string name="system_pre_month">上个月</string>
+    <string name="system_next_month">下个月</string>
 
     <!-- xlistview -->
     <string name="xlistview_header_hint_normal">下拉刷新</string>

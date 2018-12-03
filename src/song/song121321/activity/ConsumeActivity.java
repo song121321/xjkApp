@@ -53,11 +53,11 @@ public class ConsumeActivity extends BaseActivity implements
     private ArrayList<String> assertOptions = new ArrayList<String>();
     private ArrayList<String> budgetOptions = new ArrayList<String>();
     private SectionAdapter secAdapter;
-    private String currentBudget, currentAssert, currentConsumeType;
+    private String currentMonth, currentBudget, currentAssert, currentConsumeType;
     private PopupWindow mPopWin;
     private int sectionindex;
     private int page = 1;
-    private FloatingActionButton fabAdd, fabSearch;
+    private FloatingActionButton fabAdd, fabSearch,fabPre,fabNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceAssert) {
@@ -80,6 +80,8 @@ public class ConsumeActivity extends BaseActivity implements
         ivConsumeType = (ImageView) findViewById(R.id.iv_consume_mark_consume_type);
         fabAdd = (FloatingActionButton) findViewById(R.id.fab_consume_add);
         fabSearch = (FloatingActionButton) findViewById(R.id.fab_consume_search);
+        fabPre= (FloatingActionButton) findViewById(R.id.fab_consume_pre);
+        fabNext= (FloatingActionButton) findViewById(R.id.fab_consume_next);
     }
 
     private void initView() {
@@ -91,6 +93,7 @@ public class ConsumeActivity extends BaseActivity implements
         currentAssert = "";
         currentConsumeType = "";
         sectionindex = 1;
+        currentMonth = StringUtil.getCurrentMonthStr();
         initActionBar();
         refresh();
     }
@@ -129,7 +132,24 @@ public class ConsumeActivity extends BaseActivity implements
                 showShortToast("search");
             }
         });
-
+        fabPre.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                consumeBeans = new ArrayList<ConsumeDto>();
+                currentMonth = StringUtil.getPreMonthStr(currentMonth);
+                page=1;
+                refresh();
+            }
+        });
+        fabNext.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                consumeBeans = new ArrayList<ConsumeDto>();
+                currentMonth = StringUtil.getNextMonthStr(currentMonth);
+                page=1;
+                refresh();
+            }
+        });
 
 //        llSearch.setOnClickListener(new OnClickListener() {
 //
@@ -209,7 +229,7 @@ public class ConsumeActivity extends BaseActivity implements
         protected List<ConsumeDto> doInBackground(Object... params) {
             try {
                 ConsumeWebUtil cwu = new ConsumeWebUtil();
-                cwu.setMonth("2018-11");
+                cwu.setMonth(currentMonth);
                 cwu.setPage("" + page);
                 return cwu.getConsume();
             } catch (Exception e) {
@@ -228,24 +248,6 @@ public class ConsumeActivity extends BaseActivity implements
 
     }
 
-    private class BudgetTask extends AsyncTask<Void, Void, ArrayList<String>> {
-        @Override
-        protected ArrayList<String> doInBackground(Void... arg0) {
-            HashMap<String, String> params = new HashMap<String, String>();
-            String nameSpace = MyConfig.nameSpace;
-            String methodName = MyConfig.methodName_GetIntroduction;
-            String endPoint = MyConfig.endPoint;
-            return WebServiceUtil.getArrayOfAnyType(nameSpace, methodName,
-                    endPoint, params);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<String> result) {
-            super.onPostExecute(result);
-            budgetOptions = result;
-        }
-
-    }
 
     protected void selectSecCheck(int index) {
         tvBudget.setTextColor(getResources().getColor(R.color.main_textcolor_normal));

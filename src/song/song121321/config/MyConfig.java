@@ -6,6 +6,9 @@ public class MyConfig {
 	public static String appname = "小金库新版v2.0";
 	public static String API_ADDR = "http://155.94.128.192:8080/xjk/mgr/0/";
 	public static String CONSUME_FOR_APP = "consume-for-app";
+	public static String CONSUME_TYPE_FOR_APP = "consume-type-for-app";
+	public static String BUDGET_FOR_APP = "budget-for-app";
+	public static String BANK_FOR_APP = "budget-for-app";
 
 	public static String ServerAddress = "http://ydinfo.gearhostpreview.com/";
 	public static String picServer = "http://wlw.jtslkj.cn:8021";
