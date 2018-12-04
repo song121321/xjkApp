@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.github.fingerth:FingerthAndroidUtils:1.0.3'
     implementation 'com.github.huangdali:DatepickerDialog:v1.0.7'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'org.litepal.android:java:3.0.0'
     api('com.afollestad.material-dialogs:core:0.9.5.0') {
         exclude group: 'com.android.support'
     }
@@ -50,6 +51,12 @@ android {
         versionCode 2
         versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to checkforerrorsinrelease builds,
+        // but continue the build even whenerrorsarefound:
+        abortOnError false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7

@@ -1,11 +1,14 @@
 package song.song121321.bean.dto;
 
+import org.litepal.annotation.Column;
+import org.litepal.crud.LitePalSupport;
+
 import java.io.Serializable;
 
-public class BaseModelDto implements Serializable {
+public class BaseModelDto extends LitePalSupport implements Serializable {
 
 	private static final long serialVersionUID = -7674269980281525320L;
-
+	@Column(unique = true)
 	private long id;
 
 	private String descp;

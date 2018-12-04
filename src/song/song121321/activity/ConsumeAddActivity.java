@@ -1,5 +1,6 @@
 package song.song121321.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -7,22 +8,15 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.LitePal;
 
-import java.net.URLEncoder;
 import java.util.List;
 
 import song.song121321.R;
@@ -30,7 +24,6 @@ import song.song121321.app.MyApplication;
 import song.song121321.bean.dto.BankDto;
 import song.song121321.bean.dto.BudgetDto;
 import song.song121321.bean.dto.ConsumeTypeDto;
-import song.song121321.config.MyConfig;
 import song.song121321.util.BankWebUtil;
 import song.song121321.util.BudgetWebUtil;
 import song.song121321.util.ConsumeTypeWebUtil;
@@ -274,6 +267,10 @@ public class ConsumeAddActivity extends BaseActivity implements
         @Override
         protected List<ConsumeTypeDto> doInBackground(Void... voids) {
             try {
+                List<ConsumeTypeDto> resultList = LitePal.findAll(ConsumeTypeDto.class);
+                if(null!=resultList&&resultList.size()>0){
+                    return resultList;
+                }
                 ConsumeTypeWebUtil cwu = new ConsumeTypeWebUtil();
                 return cwu.getConsumeType();
             } catch (Exception e) {
@@ -284,6 +281,9 @@ public class ConsumeAddActivity extends BaseActivity implements
 
         @Override
         protected void onPostExecute(final List<ConsumeTypeDto> result) {
+            for(ConsumeTypeDto consumeTypeDto:result){
+                consumeTypeDto.save();
+            }
             closeLoadingDialog();
             showConsumeTypeDialog(result);
         }
@@ -318,6 +318,8 @@ public class ConsumeAddActivity extends BaseActivity implements
             closeLoadingDialog();
             if (ifSuccess) {
                 showLongToast("添加成功！");
+                MyApplication.getInstance().removeActivity(
+                        ConsumeAddActivity.this);
                 finish();
             }
         }
