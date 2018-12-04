@@ -1,5 +1,11 @@
 package song.song121321.util;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,6 +154,27 @@ public class ConsumeWebUtil extends WebUtil {
 
         }
         return resultList;
+    }
+
+    public static String addConsume(String para)
+            throws Exception {
+        String url = MyConfig.API_ADDR + MyConfig.CONSUME_FOR_APP + "/save?data=";
+        para = URLEncoder.encode(para, "gbk");
+        url += para;
+        HttpPost httpPost = new HttpPost(url);
+        System.out.println(url);
+        DefaultHttpClient client = new DefaultHttpClient();
+        String respContent = null;
+        StringEntity s = new StringEntity(para, "utf-8");
+        httpPost.setEntity(s);
+        httpPost.setHeader("Content-Type",
+                "application/application/json; charset=UTF-8");
+        HttpResponse resp = client.execute(httpPost);
+        if (resp.getStatusLine().getStatusCode() == 200) {
+            HttpEntity he = resp.getEntity();
+            respContent = EntityUtils.toString(he, "UTF-8");
+        }
+        return respContent;
     }
 
 }

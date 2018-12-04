@@ -319,7 +319,8 @@ public class ConsumeActivity extends BaseActivity implements
 
     @Override
     public void onRefresh() {
-        page++;
+        page=1;
+        consumeBeans = new ArrayList<>();
         refresh();
         consunmeList.stopRefresh();
     }

@@ -19,6 +19,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.List;
@@ -28,9 +30,11 @@ import song.song121321.app.MyApplication;
 import song.song121321.bean.dto.BankDto;
 import song.song121321.bean.dto.BudgetDto;
 import song.song121321.bean.dto.ConsumeTypeDto;
+import song.song121321.config.MyConfig;
 import song.song121321.util.BankWebUtil;
 import song.song121321.util.BudgetWebUtil;
 import song.song121321.util.ConsumeTypeWebUtil;
+import song.song121321.util.ConsumeWebUtil;
 import song.song121321.util.StringUtil;
 
 public class ConsumeAddActivity extends BaseActivity implements
@@ -193,32 +197,36 @@ public class ConsumeAddActivity extends BaseActivity implements
 
 
     private void addConsume() {
-        new AddConsumeTask().execute();
+
+        if (null != selectedAssert && null != selectedBudget && null != selectedConsumeType && StringUtil.notEmpty(etDesc.getText().toString()) && StringUtil.notEmpty(etJe.getText().toString()) && StringUtil.notEmpty(etDetail.getText().toString())) {
+            showLoadingDialog();
+            new AddConsumeTask().execute();
+        }else{
+            showLongToast("必填项请填写完整。");
+        }
+
     }
 
-    public static String httpPostWithJSON(String para)
-            throws Exception {
-        String url = "http://155.94.128.192:8080/xjk/mgr/0/consume-for-app/save?data=";
-        para =
-                "{\"descp\":\"试试\",\"bankid\":\"11\",\"budgetid\":\"1386\",\"consumetypeid\":\"1\",\"accountid\":\"1\",\"currencyid\":1,\"je\":\"1\",\"status\":0,\"n1\":2,\"n2\":3,\"c1\":\"ss\",\"c2\":\"dd\",\"detail\":\"2333\"}";
-        para = URLEncoder.encode(para, "gbk");
-        url += para;
-        HttpPost httpPost = new HttpPost(url);
-        System.out.println(url);
-        DefaultHttpClient client = new DefaultHttpClient();
-        String respContent = null;
-        StringEntity s = new StringEntity(para, "utf-8");
-        //  StringEntity s = new StringEntity(para, Charset.forName("UTF-8"));
-        httpPost.setEntity(s);
-        httpPost.setHeader("Content-Type",
-                "application/application/json; charset=UTF-8");
-        HttpResponse resp = client.execute(httpPost);
-        if (resp.getStatusLine().getStatusCode() == 200) {
-            HttpEntity he = resp.getEntity();
-            respContent = EntityUtils.toString(he, "UTF-8");
+    private JSONObject createConsumeBean() {
+        JSONObject consumeBean = new JSONObject();
+        try {
+            consumeBean.put("descp", etDesc.getText().toString());
+            consumeBean.put("bankid", selectedAssert.getId());
+            consumeBean.put("accountid", 4);
+            consumeBean.put("currencyid", 1);
+            consumeBean.put("budgetid", selectedBudget.getId());
+            consumeBean.put("je", etJe.getText().toString());
+            consumeBean.put("status", 0);
+            consumeBean.put("consumetypeid", selectedConsumeType.getId());
+            consumeBean.put("detail", etDetail.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return respContent;
+        return consumeBean;
+
     }
+
 
     private class BudgetTask extends AsyncTask<Void, Void, List<BudgetDto>> {
 
@@ -281,49 +289,6 @@ public class ConsumeAddActivity extends BaseActivity implements
         }
     }
 
-    //
-//	private void showBudgetDialog() {
-//		new TypeTask().execute();
-//	}
-//
-//	private class TypeTask extends AsyncTask<Void, Void, ArrayList<String>> {
-//
-//		@Override
-//		protected ArrayList<String> doInBackground(Void... arg0) {
-//			HashMap<String, String> params = new HashMap<String, String>();
-//			params.put("ctype", ToolBox.getcurrentmonth());
-//			String nameSpace = MyConfig.nameSpace;
-//			String methodName = MyConfig.methodName_GetBudget;
-//			String endPoint = MyConfig.endPoint;
-//			return WebServiceUtil.getArrayOfAnyType(nameSpace, methodName,
-//					endPoint, params);
-//		}
-//
-//		@Override
-//		protected void onPostExecute(ArrayList<String> result) {
-//			super.onPostExecute(result);
-//			result.remove(0);
-//			budgetlist = new String[result.size()];
-//			result.toArray(budgetlist);
-//			new AlertDialog.Builder(BaijiaConsumeAddActivity.this)
-//					.setTitle("选择预算")
-//					.setIcon(android.R.drawable.ic_dialog_info)
-//					.setSingleChoiceItems(budgetlist, 0,
-//							new DialogInterface.OnClickListener() {
-//								public void onClick(DialogInterface dialog,
-//										int which) {
-//									budget = budgetlist[which];
-//									tvBudgetTemp.setText(budget);
-//									dialog.dismiss();
-//								}
-//							})
-//					.setNegativeButton(getString(R.string.system_cancel), null)
-//					.show();
-//			closeLoadingDialog();
-//		}
-//
-//	}
-//
     private class AddConsumeTask extends
             AsyncTask<Void, Void, String> {
 
@@ -333,9 +298,8 @@ public class ConsumeAddActivity extends BaseActivity implements
 
         @Override
         protected String doInBackground(Void... arg0) {
-
             try {
-                httpPostWithJSON("");
+                return ConsumeWebUtil.addConsume(createConsumeBean().toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -344,8 +308,18 @@ public class ConsumeAddActivity extends BaseActivity implements
 
         @Override
         protected void onPostExecute(String result) {
-
-
+            boolean ifSuccess = false;
+            try {
+                JSONObject dataJson = new JSONObject(result);
+                ifSuccess = dataJson.getBoolean("head");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            closeLoadingDialog();
+            if (ifSuccess) {
+                showLongToast("添加成功！");
+                finish();
+            }
         }
     }
 
