@@ -25,8 +25,13 @@ import java.util.List;
 
 import song.song121321.R;
 import song.song121321.app.MyApplication;
+import song.song121321.bean.dto.BankDto;
 import song.song121321.bean.dto.BudgetDto;
+import song.song121321.bean.dto.ConsumeTypeDto;
+import song.song121321.util.BankWebUtil;
 import song.song121321.util.BudgetWebUtil;
+import song.song121321.util.ConsumeTypeWebUtil;
+import song.song121321.util.StringUtil;
 
 public class ConsumeAddActivity extends BaseActivity implements
         OnClickListener {
@@ -37,6 +42,10 @@ public class ConsumeAddActivity extends BaseActivity implements
     String desc, cassert, budget, money, ctype, detail;
     private MaterialDialog.Builder mBuilder;
     private MaterialDialog mMaterialDialog;
+    private BudgetDto selectedBudget;
+    private BankDto selectedAssert;
+    private ConsumeTypeDto selectedConsumeType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +104,16 @@ public class ConsumeAddActivity extends BaseActivity implements
                 addConsume();
                 break;
             case R.id.rl_consume_add_assert:
-                //showTimeDialog();
+                showLoadingDialog();
+                new AssertTask().execute();
                 break;
             case R.id.rl_consume_add_budget:
-                showBudgetDialog();
+                showLoadingDialog();
+                new BudgetTask().execute();
                 break;
             case R.id.rl_consume_add_ctype:
-                //showPersonDialog();
+                showLoadingDialog();
+                new ConsumeTypeTask().execute();
                 break;
 
             default:
@@ -109,15 +121,79 @@ public class ConsumeAddActivity extends BaseActivity implements
         }
     }
 
-    private void showBudgetDialog() {
-        new BudgetTask().execute();
+    private void showBudgetDialog(final List<BudgetDto> result) {
+        String[] budgetArray = new String[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            BudgetDto budgetDto = result.get(i);
+            budgetArray[i] = budgetDto.getDescp() + " ￥" + budgetDto.getLeftje();
+        }
+        mBuilder = new MaterialDialog.Builder(ConsumeAddActivity.this);
+        mBuilder.title("选择预算");
+        mBuilder.titleGravity(GravityEnum.CENTER);
+        mBuilder.items(budgetArray);
+        mBuilder.theme(Theme.LIGHT);
+        mBuilder.autoDismiss(true);
+        mBuilder.itemsCallback(new MaterialDialog.ListCallback() {
+            @Override
+            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                selectedBudget = result.get(position);
+                tvBudgetTemp.setText(selectedBudget.getDescp());
+            }
+        });
+        mMaterialDialog = mBuilder.build();
+        mMaterialDialog.show();
+    }
+
+
+    private void showAssertDialog(final List<BankDto> result) {
+        String[] bankArray = new String[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            BankDto bankDto = result.get(i);
+            bankArray[i] = bankDto.getDescp() + " ￥" + bankDto.getJe();
+        }
+        mBuilder = new MaterialDialog.Builder(ConsumeAddActivity.this);
+        mBuilder.title("选择付款账户");
+        mBuilder.titleGravity(GravityEnum.CENTER);
+        mBuilder.items(bankArray);
+        mBuilder.theme(Theme.LIGHT);
+        mBuilder.autoDismiss(true);
+        mBuilder.itemsCallback(new MaterialDialog.ListCallback() {
+            @Override
+            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                selectedAssert = result.get(position);
+                tvAssertTemp.setText(selectedAssert.getDescp());
+            }
+        });
+        mMaterialDialog = mBuilder.build();
+        mMaterialDialog.show();
+    }
+
+    private void showConsumeTypeDialog(final List<ConsumeTypeDto> result) {
+        String[] cTypeArray = new String[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            ConsumeTypeDto cTypeDto = result.get(i);
+            cTypeArray[i] = cTypeDto.getDescp();
+        }
+        mBuilder = new MaterialDialog.Builder(ConsumeAddActivity.this);
+        mBuilder.title("选择消费类型");
+        mBuilder.titleGravity(GravityEnum.CENTER);
+        mBuilder.items(cTypeArray);
+        mBuilder.theme(Theme.LIGHT);
+        mBuilder.autoDismiss(true);
+        mBuilder.itemsCallback(new MaterialDialog.ListCallback() {
+            @Override
+            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                selectedConsumeType = result.get(position);
+                tvCtypeTemp.setText(selectedConsumeType.getDescp());
+            }
+        });
+        mMaterialDialog = mBuilder.build();
+        mMaterialDialog.show();
     }
 
 
     private void addConsume() {
-
         new AddConsumeTask().execute();
-
     }
 
     public static String httpPostWithJSON(String para)
@@ -150,7 +226,7 @@ public class ConsumeAddActivity extends BaseActivity implements
         protected List<BudgetDto> doInBackground(Void... voids) {
             try {
                 BudgetWebUtil cwu = new BudgetWebUtil();
-                cwu.setMonth("2018-12");
+                cwu.setMonth(StringUtil.getCurrentMonthStr());
                 return cwu.getBudget();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -160,26 +236,48 @@ public class ConsumeAddActivity extends BaseActivity implements
 
         @Override
         protected void onPostExecute(final List<BudgetDto> result) {
-            String[] budgetArray = new String[result.size()];
-            for (int i = 0; i < result.size(); i++) {
-                BudgetDto budgetDto = result.get(i);
-                budgetArray[i] = budgetDto.getDescp() + " ￥" + budgetDto.getLeftje();
+            closeLoadingDialog();
+            showBudgetDialog(result);
+        }
+    }
+
+    private class AssertTask extends AsyncTask<Void, Void, List<BankDto>> {
+
+        @Override
+        protected List<BankDto> doInBackground(Void... voids) {
+            try {
+                BankWebUtil cwu = new BankWebUtil();
+                return cwu.getBank();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
             }
-            mBuilder = new MaterialDialog.Builder(ConsumeAddActivity.this);
-            mBuilder.title("选择预算");
-            mBuilder.titleGravity(GravityEnum.CENTER);
-            mBuilder.items(budgetArray);
-            mBuilder.theme(Theme.LIGHT);
-            mBuilder.autoDismiss(true);
-            mBuilder.itemsCallback(new MaterialDialog.ListCallback() {
-                @Override
-                public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                    Toast.makeText(ConsumeAddActivity.this, result.get(position).getDescp() + result.get(position).getId(), Toast.LENGTH_SHORT).show();
-                    tvBudgetTemp.setText(text);
-                }
-            });
-            mMaterialDialog = mBuilder.build();
-            mMaterialDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(final List<BankDto> result) {
+            closeLoadingDialog();
+            showAssertDialog(result);
+        }
+    }
+
+    private class ConsumeTypeTask extends AsyncTask<Void, Void, List<ConsumeTypeDto>> {
+
+        @Override
+        protected List<ConsumeTypeDto> doInBackground(Void... voids) {
+            try {
+                ConsumeTypeWebUtil cwu = new ConsumeTypeWebUtil();
+                return cwu.getConsumeType();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final List<ConsumeTypeDto> result) {
+            closeLoadingDialog();
+            showConsumeTypeDialog(result);
         }
     }
 

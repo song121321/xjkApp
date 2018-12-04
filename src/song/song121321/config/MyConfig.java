@@ -8,7 +8,7 @@ public class MyConfig {
 	public static String CONSUME_FOR_APP = "consume-for-app";
 	public static String CONSUME_TYPE_FOR_APP = "consume-type-for-app";
 	public static String BUDGET_FOR_APP = "budget-for-app";
-	public static String BANK_FOR_APP = "budget-for-app";
+	public static String BANK_FOR_APP = "bank-for-app";
 
 	public static String ServerAddress = "http://ydinfo.gearhostpreview.com/";
 	public static String picServer = "http://wlw.jtslkj.cn:8021";

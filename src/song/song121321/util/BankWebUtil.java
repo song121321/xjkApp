@@ -30,7 +30,7 @@ public class BankWebUtil extends WebUtil {
 
     private String getBankStr() throws Exception {
         String urlFront = MyConfig.API_ADDR + MyConfig.BANK_FOR_APP;
-        String para = "/list?zhName=" + descp;
+        String para = "/banks?zhName=" + descp;
         return GetStr(urlFront + para);
     }
 
