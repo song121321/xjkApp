@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +29,10 @@ import song.song121321.adapter.ConsumeAdapter;
 import song.song121321.adapter.SectionAdapter;
 import song.song121321.app.MyApplication;
 import song.song121321.bean.dto.ConsumeDto;
-import song.song121321.bean.dto.ConsumeTypeDto;
-import song.song121321.config.MyConfig;
 import song.song121321.util.ConsumeWebUtil;
 import song.song121321.util.ListUtils;
 import song.song121321.util.ListUtilsHook;
-import song.song121321.util.ParseUtil;
 import song.song121321.util.StringUtil;
-import song.song121321.util.WebServiceUtil;
 import song.song121321.xlistview.XListView;
 import song.song121321.xlistview.XListView.IXListViewListener;
 
@@ -57,7 +52,7 @@ public class ConsumeActivity extends BaseActivity implements
     private PopupWindow mPopWin;
     private int sectionindex;
     private int page = 1;
-    private FloatingActionButton fabAdd, fabSearch,fabPre,fabNext;
+    private FloatingActionButton fabAdd, fabSearch, fabPre, fabNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceAssert) {
@@ -80,8 +75,8 @@ public class ConsumeActivity extends BaseActivity implements
         ivConsumeType = (ImageView) findViewById(R.id.iv_consume_mark_consume_type);
         fabAdd = (FloatingActionButton) findViewById(R.id.fab_consume_add);
         fabSearch = (FloatingActionButton) findViewById(R.id.fab_consume_search);
-        fabPre= (FloatingActionButton) findViewById(R.id.fab_consume_pre);
-        fabNext= (FloatingActionButton) findViewById(R.id.fab_consume_next);
+        fabPre = (FloatingActionButton) findViewById(R.id.fab_consume_pre);
+        fabNext = (FloatingActionButton) findViewById(R.id.fab_consume_next);
     }
 
     private void initView() {
@@ -137,7 +132,7 @@ public class ConsumeActivity extends BaseActivity implements
             public void onClick(View v) {
                 consumeBeans = new ArrayList<ConsumeDto>();
                 currentMonth = StringUtil.getPreMonthStr(currentMonth);
-                page=1;
+                page = 1;
                 refresh();
             }
         });
@@ -146,7 +141,7 @@ public class ConsumeActivity extends BaseActivity implements
             public void onClick(View v) {
                 consumeBeans = new ArrayList<ConsumeDto>();
                 currentMonth = StringUtil.getNextMonthStr(currentMonth);
-                page=1;
+                page = 1;
                 refresh();
             }
         });
@@ -319,7 +314,7 @@ public class ConsumeActivity extends BaseActivity implements
 
     @Override
     public void onRefresh() {
-        page=1;
+        page = 1;
         consumeBeans = new ArrayList<>();
         refresh();
         consunmeList.stopRefresh();
@@ -352,17 +347,17 @@ public class ConsumeActivity extends BaseActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View arg1, int position,
                             long arg3) {
-//        if (R.id.xl_device_well_list == parent.getId()) {
-//            Intent intent = new Intent();
-//            intent.setClass(ConsumeActivity.this,
-//                    DeviceWellDetailActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("wellBean", consumeBeans.get(position - 1));
-//            intent.putExtras(bundle);
-//            this.startActivity(intent);
-//            return;
-//        }
-//
+        if (R.id.xl_consume_list == parent.getId()) {
+            Intent intent = new Intent();
+            intent.setClass(ConsumeActivity.this,
+                    ConsumeEditActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("singleConsume", consumeBeans.get(position - 1));
+            intent.putExtras(bundle);
+            this.startActivity(intent);
+            return;
+        }
+
         switch (sectionindex) {
             case 1:
                 secAdapter = new SectionAdapter(ConsumeActivity.this,

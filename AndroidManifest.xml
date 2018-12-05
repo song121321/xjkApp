@@ -115,6 +115,7 @@
             />
         <activity android:name=".activity.ConsumeActivity" />
         <activity android:name=".activity.ConsumeAddActivity" />
+        <activity android:name=".activity.ConsumeEditActivity" />
 
     </application>
 
