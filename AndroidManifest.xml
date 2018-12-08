@@ -117,6 +117,7 @@
         <activity android:name=".activity.ConsumeAddActivity" />
         <activity android:name=".activity.ConsumeEditActivity" />
         <activity android:name=".activity.ConsumeTypeActivity" />
+        <activity android:name=".activity.BudgetActivity" />
 
     </application>
 

@@ -237,7 +237,7 @@ public class ToolBox {
      * @return 返回一个月份字符串链表 单项为 2015年6月份
      */
     public static ArrayList<String> generateChinesemonthlist(String starttimestr) {
-        ArrayList<String> o = generatemonthlist(starttimestr);
+        ArrayList<String> o = generateMonthList(starttimestr);
         for (int i = 0; i < o.size(); i++) {
             o.set(i, formatChineseMonthStr(o.get(i)));
         }
@@ -247,17 +247,17 @@ public class ToolBox {
     /**
      * 产生一个月份字符串链表，为从给定的时间开始到这个月为止
      *
-     * @param starttimestr 标准格式 2014-10-01
+     * @param startTimeStr 标准格式 2014-10-01
      * @return 返回一个月份字符串链表 单项为 2015-06
      */
-    public static ArrayList<String> generatemonthlist(String starttimestr) {
+    public static ArrayList<String> generateMonthList(String startTimeStr) {
         ArrayList<String> monthlist = new ArrayList<String>();
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date start = new Date();
         try {
-            start = sdf.parse(starttimestr);
+            start = sdf.parse(startTimeStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }

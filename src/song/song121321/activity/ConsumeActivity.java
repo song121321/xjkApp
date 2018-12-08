@@ -189,11 +189,11 @@ public class ConsumeActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                if (arg2 == 0) {
-//                    Intent intent = new Intent(ConsumeActivity.this,
-//                            BaijiaBudgetActivity.class);
-//                    startActivity(intent);
-//                    ConsumeActivity.this.finish();
+                if (arg2 == 1) {
+                    Intent intent = new Intent(ConsumeActivity.this,
+                            BudgetActivity.class);
+                    startActivity(intent);
+                    ConsumeActivity.this.finish();
                 } else if (arg2 == 2) {
                     Intent intent = new Intent(ConsumeActivity.this,
                             ConsumeTypeActivity.class);
