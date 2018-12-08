@@ -1,0 +1,33 @@
+<song.song121321.ui.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dl_consume"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/left_bk"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_consume_left_menu" />
+
+    <song.song121321.ui.MyRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/left_bk"
+        android:orientation="vertical">
+
+        <include layout="@layout/actionbar_only_title" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/text_white"
+            android:gravity="center_vertical">
+
+            <song.song121321.xlistview.XListView
+                android:id="@+id/xl_consume_type_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/text_white"></song.song121321.xlistview.XListView>
+        </RelativeLayout>
+
+    </song.song121321.ui.MyRelativeLayout>
+
+</song.song121321.ui.DragLayout>

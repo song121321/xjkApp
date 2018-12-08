@@ -42,7 +42,9 @@ import song.song121321.xlistview.XListView.IXListViewListener;
 
 public class ConsumeActivity extends BaseActivity implements
         OnClickListener, OnItemClickListener, IXListViewListener {
-    /** 左边侧滑菜单 */
+    /**
+     * 左边侧滑菜单
+     */
     private DragLayout mDragLayout;
     private ListView menuListView;// 菜单列表
     private XListView consunmeList;
@@ -171,14 +173,17 @@ public class ConsumeActivity extends BaseActivity implements
         });
         List<Map<String, Object>> leftMenuData = new ArrayList<Map<String, Object>>();
         Map<String, Object> item = new HashMap<String, Object>();
-        item.put("item", "预算");
+        item.put("item", "消费");
         leftMenuData.add(item);
         Map<String, Object> item1 = new HashMap<String, Object>();
-        item1.put("item", "消费");
+        item1.put("item", "预算");
         leftMenuData.add(item1);
+        Map<String, Object> item2 = new HashMap<>();
+        item2.put("item", "类型");
+        leftMenuData.add(item2);
         menuListView.setAdapter(new SimpleAdapter(this, leftMenuData,
-                R.layout.item_left_menu, new String[] { "item" },
-                new int[] { R.id.menu_text }));
+                R.layout.item_left_menu, new String[]{"item"},
+                new int[]{R.id.menu_text}));
         menuListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -189,6 +194,11 @@ public class ConsumeActivity extends BaseActivity implements
 //                            BaijiaBudgetActivity.class);
 //                    startActivity(intent);
 //                    ConsumeActivity.this.finish();
+                } else if (arg2 == 2) {
+                    Intent intent = new Intent(ConsumeActivity.this,
+                            ConsumeTypeActivity.class);
+                    startActivity(intent);
+                    ConsumeActivity.this.finish();
                 } else {
                     mDragLayout.close();
                 }
