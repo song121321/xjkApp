@@ -15,13 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import song.song121321.R;
@@ -29,6 +32,7 @@ import song.song121321.adapter.ConsumeAdapter;
 import song.song121321.adapter.SectionAdapter;
 import song.song121321.app.MyApplication;
 import song.song121321.bean.dto.ConsumeDto;
+import song.song121321.ui.DragLayout;
 import song.song121321.util.ConsumeWebUtil;
 import song.song121321.util.ListUtils;
 import song.song121321.util.ListUtilsHook;
@@ -38,6 +42,9 @@ import song.song121321.xlistview.XListView.IXListViewListener;
 
 public class ConsumeActivity extends BaseActivity implements
         OnClickListener, OnItemClickListener, IXListViewListener {
+    /** 左边侧滑菜单 */
+    private DragLayout mDragLayout;
+    private ListView menuListView;// 菜单列表
     private XListView consunmeList;
     private ListView section_list;
     private LinearLayout ll_bar;
@@ -65,6 +72,8 @@ public class ConsumeActivity extends BaseActivity implements
     }
 
     private void findViewById() {
+        mDragLayout = (DragLayout) findViewById(R.id.dl_consume);
+        menuListView = (ListView) findViewById(R.id.ll_left_menu);
         consunmeList = (XListView) findViewById(R.id.xl_consume_list);
         tvTitle = (TextView) findViewById(R.id.tv_actionbar_usual_title);
         tvBudget = (TextView) findViewById(R.id.tv_consume_section_budget);
@@ -146,15 +155,45 @@ public class ConsumeActivity extends BaseActivity implements
             }
         });
 
-//        llSearch.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-////                Intent intent = new Intent(DeviceWellActivity.this,
-////                        BaijiaConsumeSearchActivity.class);
-////                startActivity(intent);
-//            }
-//        });
+        mDragLayout.setDragListener(new DragLayout.DragListener() {// 动作监听
+            @Override
+            public void onOpen() {
+            }
+
+            @Override
+            public void onClose() {
+            }
+
+            @Override
+            public void onDrag(float percent) {
+
+            }
+        });
+        List<Map<String, Object>> leftMenuData = new ArrayList<Map<String, Object>>();
+        Map<String, Object> item = new HashMap<String, Object>();
+        item.put("item", "预算");
+        leftMenuData.add(item);
+        Map<String, Object> item1 = new HashMap<String, Object>();
+        item1.put("item", "消费");
+        leftMenuData.add(item1);
+        menuListView.setAdapter(new SimpleAdapter(this, leftMenuData,
+                R.layout.item_left_menu, new String[] { "item" },
+                new int[] { R.id.menu_text }));
+        menuListView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                if (arg2 == 0) {
+//                    Intent intent = new Intent(ConsumeActivity.this,
+//                            BaijiaBudgetActivity.class);
+//                    startActivity(intent);
+//                    ConsumeActivity.this.finish();
+                } else {
+                    mDragLayout.close();
+                }
+            }
+        });
     }
 
     private void refresh() {
